@@ -1,13 +1,13 @@
 #include <Arduino.h>
 
-//ToDo pins als Variablen hinterlegen
+//definiere Pins
+#define LED 23
 
 void setup() {
-  //ToDo Pin Deklarationen (evtl. automatisiert)
-  
+  pinMode(LED, OUTPUT);
+  digitalWrite(LED, HIGH);
 }
 
 void loop() {
-  //Programmablauf einbauen
 
 }
