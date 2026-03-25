@@ -1,20 +1,13 @@
 #include <Arduino.h>
-#include <TFT_eSPI.h>
 
-TFT_eSPI tft = TFT_eSPI();
-
-//ToDo pins als Variablen hinterlegen
+//definiere Pins
+#define LED 23
 
 void setup() {
-  //ToDo Pin Deklarationen (evtl. automatisiert)
-  tft.begin();
-  tft.fillScreen(TFT_RED);
+  pinMode(LED, OUTPUT);
+  digitalWrite(LED, HIGH);
 }
 
 void loop() {
-  //Programmablauf einbauen
-  digitalWrite(25, HIGH);
 
 }
-
-//GRAFIKCHIP IST WAHRSCHEINLICH ILI9488
