@@ -35,7 +35,7 @@ void loop() {
   if(digitalRead(flipperButtonLeft) == LOW){
     digitalWrite(flipperLeft, HIGH);
     Serial.println("Button left");
-    delay(100);
+    delay(200);
   }
   else{
     digitalWrite(flipperLeft, LOW);
@@ -44,7 +44,7 @@ void loop() {
   if(digitalRead(flipperButtonRight) == LOW){
     digitalWrite(flipperRight, HIGH);
     Serial.println("Button right");
-    delay(100);
+    delay(200);
   }
   else{
     digitalWrite(flipperRight, LOW);
