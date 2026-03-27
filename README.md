@@ -1,2 +1,2 @@
 # SIA Flipper Projekt
-![ESP32 Pinout-Diagramm](/home/arthur/Downloads/ESP32PinOut.webp)
+![ESP32 Pinout-Diagramm](/Resources/ESP32PinOut.webp)
