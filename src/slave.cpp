@@ -8,11 +8,14 @@ bool connected = false; //variable für conection check
 void evaluatePackage();
 
 void onRequest() {
-  //temporär Reply für Handshake
-  if(connected){
-    Package reply = makePackage(HSS, "Hello World");
-    Wire.write((uint8_t*)&reply, sizeof(Package));
+  Package reply;
+  if (lastReceived.index == HSM) {
+    reply = makePackage(HSS, "Hello World");
   }
+  else {
+    reply = makePackage(INF, "Idle");
+  }
+  Wire.write((uint8_t*)&reply, sizeof(Package));
 }
 
 void onReceive(int len) {
@@ -53,6 +56,7 @@ void evaluatePackage(){
 void setup() {
   //Beginne Serielle Kommunikation mit dem PC
   Serial.begin(9600);
+  Serial.setDebugOutput(false);
 
   //Setze Interrupt voids
   Wire.onReceive(onReceive);

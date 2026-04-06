@@ -3,6 +3,8 @@
 #include <Protocol.h>
 
 bool connected = false;   //variable für conection check
+Package lastReceived;
+
 
 //Funktionsprototypen für das Hebel Modul
 void hebelSetup();
@@ -22,26 +24,11 @@ Package requestPackage() {
     return p;
 }
 
-void makeHandshake(){
-  //Handshake einleiten
-  sendPackage(makePackage(HSM, "Work you fool"));
-
-  //Antwort auf Handshake anfordern
-  if(requestPackage().index != HSS){
-    Serial.println("[FATAL] no or incorrect answer from slave");
-    Serial.println("[INFO] retrtrying in 5 seconds");
-    delay(5000);
-    makeHandshake();
-  }
-  else{
-    connected = true;
-    Serial.println("[INFO] connection established successfully");
-  }
-}
 
 void setup() {
   //Beginne Serielle Kommunikation mit dem PC
   Serial.begin(9600);
+  Serial.setDebugOutput(false);
 
   //Starte Serielle Kommunikation mit ESP
   Wire.begin();
@@ -50,6 +37,17 @@ void setup() {
   hebelSetup();
 
   //Handshake durchführen
-  makeHandshake();
+  while (!connected) {
+    sendPackage(makePackage(HSM, "Work you fool"));
+    lastReceived = requestPackage();
+
+    if (lastReceived.index == HSS) {
+        connected = true;
+        Serial.println("[INFO] connection established successfully");
+    } else {
+        Serial.println("[FATAL] no or incorrect answer from slave");
+        delay(5000);
+    }
+}
 }
 
