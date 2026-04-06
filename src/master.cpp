@@ -4,51 +4,22 @@
 //Adresse des I2C Geräts (muss gleich der Adresse des Slaves sein)
 #define I2C_DEV_ADDR 0x55
 
-//definiere Schalter Pins
-#define flipperButtonLeft 13
-#define flipperButtonRight 12
-
-//definiere Hebel Pins
-#define flipperLeft 2
-#define flipperRight 15
-
 uint32_t i = 0;
 
-void setup() {
-  //Pins initialisieren
-  pinMode(flipperButtonLeft, INPUT_PULLUP);
-  pinMode(flipperButtonRight, INPUT_PULLUP);
-  pinMode(flipperLeft, OUTPUT);
-  pinMode(flipperRight, OUTPUT);
+//Funktionsprototypen für das Hebel Modul
+void hebelSetup();
 
+void setup() {
   //Beginne Serielle Kommunikation mit dem PC
   Serial.begin(9600);
-  //Serial.setDebugOutput(true);
 
   //Starte Serielle Kommunikation mit ESP
   Wire.begin();
 
   //TODO Handshake implementieren
-}
 
-void loop() {
-  if(digitalRead(flipperButtonLeft) == LOW){
-    digitalWrite(flipperLeft, HIGH);
-    Serial.println("Button left");
-    delay(200);
-  }
-  else{
-    digitalWrite(flipperLeft, LOW);
-  }
-
-  if(digitalRead(flipperButtonRight) == LOW){
-    digitalWrite(flipperRight, HIGH);
-    Serial.println("Button right");
-    delay(200);
-  }
-  else{
-    digitalWrite(flipperRight, LOW);
-  }
+  //Ausführen des Setups im Hebel Modul
+  hebelSetup();
 }
 
 void SendMessage(String message){
