@@ -1,34 +1,65 @@
 #include <Arduino.h>
 #include <Wire.h>
+#include <Protocol.h>
 
-//Adresse des I2C Geräts (muss gleich der Adresse des Masters sein)
-#define I2C_DEV_ADDR 0x55
+Package lastReceived;   //letztes eingegangenes Package
+bool connected = false; //variable für conection check
 
-uint32_t i = 0;
+void evaluatePackage();
 
 void onRequest() {
-  Wire.write(String(i++).c_str());
-  Wire.write(" Packets.");
+  //temporär Reply für Handshake
+  if(connected){
+    Package reply = makePackage(HSS, "Hello World");
+    Wire.write((uint8_t*)&reply, sizeof(Package));
+  }
 }
 
 void onReceive(int len) {
-  while (Wire.available()) {
-    Serial.write(Wire.read());
+  //speichere Package ab
+  uint8_t* ptr = (uint8_t*)&lastReceived;
+  for (int i = 0; i < sizeof(Package) && Wire.available(); i++){
+    ptr[i] = Wire.read();
   }
-  Serial.println();
+
+  //Einfache überprüfung ob die Daten korrupt sind
+  if (lastReceived.length != strlen(lastReceived.message)) {
+    Serial.println("[ERROR] received corrupted Package");
+  } 
+  else {
+    Serial.println("[INFO] slave received package");
+    Serial.print("[INFO] package: ");
+    Serial.println(lastReceived.message);
+    evaluatePackage();
+  }
+}
+
+void evaluatePackage(){
+  switch(lastReceived.index){ //Packages nach Typ sortiert behandeln
+    case HSM:
+      connected = true;
+      break;
+    case HSS:
+      break;
+    case MSG:
+      break;
+    case ERR:
+      break;
+    case INF:
+      break;
+  }
 }
 
 void setup() {
   //Beginne Serielle Kommunikation mit dem PC
   Serial.begin(9600);
-  //Serial.setDebugOutput(true);
 
   //Setze Interrupt voids
   Wire.onReceive(onReceive);
   Wire.onRequest(onRequest);
 
   //Starte ESP Kommunikation
-  Wire.begin((uint8_t)I2C_DEV_ADDR);
+  Wire.begin(I2C_DEV_ADDR);
 }
 
 void loop(){
