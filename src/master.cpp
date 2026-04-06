@@ -44,8 +44,14 @@ void setup() {
     if (lastReceived.index == HSS) {
         connected = true;
         Serial.println("[INFO] connection established successfully");
+        if(String(lastReceived.message) != String(PROT_VER)){
+          Serial.println("[INFO] master and slave are running different Protocol versions");
+          Serial.println(String(lastReceived.message));
+          Serial.println(String(PROT_VER));
+        }
     } else {
         Serial.println("[FATAL] no or incorrect answer from slave");
+        Serial.println("[INFO] retrying in 5 seconds");
         delay(5000);
     }
 }

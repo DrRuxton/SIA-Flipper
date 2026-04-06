@@ -10,7 +10,8 @@ void evaluatePackage();
 void onRequest() {
   Package reply;
   if (lastReceived.index == HSM) {
-    reply = makePackage(HSS, "Hello World");
+    char version[5];
+    reply = makePackage(HSS, itoa(PROT_VER, version, 4));   //wilde conversion idk better XD
   }
   else {
     reply = makePackage(INF, "Idle");
