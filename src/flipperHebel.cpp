@@ -8,7 +8,7 @@
 #define flipperLeft 2
 #define flipperRight 15
 
-void hebelSetup (){
+void hebelSetup(){
     //Pins initialisieren
     pinMode(flipperButtonLeft, INPUT_PULLUP);
     pinMode(flipperButtonRight, INPUT_PULLUP);
@@ -16,7 +16,7 @@ void hebelSetup (){
     pinMode(flipperRight, OUTPUT);
 }
 
-void loop() {
+void loop(){
   if(digitalRead(flipperButtonLeft) == LOW){
     digitalWrite(flipperLeft, HIGH);
     Serial.println("Button left");

@@ -1,13 +1,10 @@
 #include <Arduino.h>
 #include <Wire.h>
 #include <Protocol.h>
+#include <flipperHebel.h>
 
 bool connected = false;   //variable für conection check
 Package lastReceived;
-
-
-//Funktionsprototypen für das Hebel Modul
-void hebelSetup();
 
 void sendPackage(const Package& p) {
     Wire.beginTransmission(I2C_DEV_ADDR);
@@ -36,6 +33,7 @@ void setup() {
   //Ausführen des Setups im Hebel Modul
   hebelSetup();
 
+  /*    Skip Handshake because of shit
   //Handshake durchführen
   while (!connected) {
     sendPackage(makePackage(HSM, "Work you fool"));
@@ -55,5 +53,7 @@ void setup() {
         delay(5000);
     }
 }
+    */
+   Serial.println("Skipped Handshake");
 }
 

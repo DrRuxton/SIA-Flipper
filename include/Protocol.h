@@ -3,13 +3,13 @@
 
 #define I2C_DEV_ADDR 0x55 //Einfach nicht ändern
 #define MAX_MSG_LEN 32    //Maximal mögliche Package länge
-#define PROT_VER 1
+#define PROT_VER 2
 
-#define HSM 1
-#define HSS 2
-#define MSG 3
-#define ERR 4
-#define INF 5
+#define HSM 1       //HandShake Master
+#define HSS 2       //HandShake Slave
+#define SPH 3       //Set Pin High
+#define SPL 4       //Set Pin Low
+//To be added to
 
 struct Package {
     uint8_t index;               // Typ des Package
