@@ -2,6 +2,8 @@
 #include <Wire.h>
 #include <Protocol.h>
 #include <flipperHebel.h>
+#include <LCD.h>
+
 
 bool connected = false;   //variable für conection check
 Package lastReceived;
@@ -58,5 +60,6 @@ void setup() {
 }
     */
    Serial.println("Skipped Handshake");
+   ScanDevices();
 }
 

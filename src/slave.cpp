@@ -1,7 +1,6 @@
 #include <Arduino.h>
 #include <Wire.h>
 #include <Protocol.h>
-#include <LCD.h>
 
 Package lastReceived;   //letztes eingegangenes Package
 bool connected = false; //variable für conection check
@@ -64,12 +63,10 @@ void setup() {
   Wire.onReceive(onReceive);
   Wire.onRequest(onRequest);
 
-  //Starte ESP Kommunikation
+  //Starte ESP Kommunikation als Slave
   Wire.begin(I2C_DEV_ADDR);
 
   Serial.println("Slave started");
-
-  ScanDevices();
 }
 
 void loop(){
