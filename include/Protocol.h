@@ -3,7 +3,7 @@
 
 #define I2C_DEV_ADDR 0x55 //Einfach nicht ändern
 #define MAX_MSG_LEN 32    //Maximal mögliche Package länge
-#define PROT_VER 2
+#define PROT_VER 2        //Protokoll Version
 
 #define HSM 1       //HandShake Master
 #define HSS 2       //HandShake Slave
@@ -14,7 +14,7 @@
 struct Package {
     uint8_t index;               // Typ des Package
     char message[MAX_MSG_LEN];   // Inhalt des Package
-    uint8_t length;              // Length of message
+    uint8_t length;              // Länge der Nachricht
 };
 
 // Helper: fill a package safely

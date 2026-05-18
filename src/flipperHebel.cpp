@@ -34,4 +34,8 @@ void loop(){
   else{
     digitalWrite(flipperRight, LOW);
   }
+
+  int analogValue = analogRead(15);
+  Serial.println(analogValue);
+  delay(500);
 }

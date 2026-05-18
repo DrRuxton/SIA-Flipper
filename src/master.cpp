@@ -27,6 +27,9 @@ void setup() {
   Serial.begin(9600);
   Serial.setDebugOutput(false);
 
+  //erweitere Sensoren Messbereich
+  analogSetAttenuation(ADC_11db);
+
   //Starte Serielle Kommunikation mit ESP
   Wire.begin();
 
