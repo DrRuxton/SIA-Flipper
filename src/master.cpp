@@ -38,7 +38,6 @@ void setup() {
   //Ausführen des Setups im Hebel Modul
   hebelSetup();
 
-  /*    Skip Handshake because of shit
   //Handshake durchführen
   while (!connected) {
     sendPackage(makePackage(HSM, "Work you fool"));
@@ -57,9 +56,8 @@ void setup() {
         Serial.println("[INFO] retrying in 5 seconds");
         delay(5000);
     }
-}
-    */
-   Serial.println("Skipped Handshake");
+
+   Serial.println(I2C_DEV_ADDR);
    ScanDevices();
 }
 
